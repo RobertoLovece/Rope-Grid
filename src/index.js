@@ -1,25 +1,22 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
-import Line from './utilities/line.js'
-import {initGui} from './utilities/gui.js'
+import InstanceStick from './utilities/InstanceStick.js'
+import Point from './point.js';
 
 require('normalize.css/normalize.css');
 require("./index.css");
 
 let renderer, scene, camera;
-let container, controls;
+let container;
 let raycaster, mouse, selectedObject;
-let line;
+let line, points;
 
 window.onload = function () {
     
     init();
     initObjects();
 
-    initGui(line);
-
-    initControls();
+    // initGui(line);
     // initRaycaster();
 
     animate();
@@ -36,7 +33,7 @@ function init() {
     container.appendChild(renderer.domElement);
 
     camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 1000);
-    camera.position.set(- 40, 0, 60);
+    camera.position.set(0, 0, 15);
 
     scene = new THREE.Scene();
 
@@ -44,22 +41,26 @@ function init() {
 
 function initObjects() {
 
-    var points = [];
-    points.push(new THREE.Vector3(15, 0, 0))
-    points.push(new THREE.Vector3(-15, 0, 0))
+    points = [];
 
-    line = new Line(points, 5, false);
-    scene.add(line);
+    var point0 = new Point(0, -1, 0, 0, true);
+    var point1 = new Point(2, 1, 0, 0, false);
 
-}
+    var point2 = new Point(4, 0, 0, 0, true);
+    var point3 = new Point(3, 2, 0, 0, false);
 
-function initControls() {
+    points.push(point0);
+    points.push(point1);
+    points.push(point2);
+    points.push(point3);
 
-    controls = new OrbitControls(camera, renderer.domElement);
+    line = new InstanceStick(point0, point1, point2, point3, 0.05);
+    scene.add(line.mesh);
 
-    controls.minDistance = 10;
-    controls.maxDistance = 150;
-    controls.enablePan = false;
+    points.forEach(function (point) {
+        scene.add(point);
+    });
+
 }
 
 function initRaycaster() {
@@ -75,9 +76,11 @@ function initRaycaster() {
 function animate() {
     requestAnimationFrame(animate);
 
-    // renderer will set this eventually
-    // line.matLine.resolution.set(window.innerWidth, window.innerHeight); // resolution of the viewport
-    line.matLine.resolution.set(container.offsetWidth, container.offsetHeight); // resolution of the viewport
+    points.forEach(function (point) {
+        point.updatePoint();
+    });
+
+    line.update();
 
     renderer.render(scene, camera);
 
