@@ -21,24 +21,25 @@ export default class InstanceStick {
     update() {
 
         for (let i = 0; i < this.sticks.length; i++) {
+            
             var stick = this.sticks[i];
-
-            stick.updateStick();
 
             var mid = this.centerMidPoint(stick.p0, stick.p1)
             var midX = mid.x;
             var midY = mid.y;
-
             dummy.position.set(midX,midY,-0.01);
 
             var angle = (this.angleBetweenPoints(stick.p0, stick.p1)) * 1;
             dummy.rotation.set(0,0, angle);
-
-            dummy.scale.set(1,stick.length,1);
+        
+            var dist = stick.distance(stick.p0, stick.p1);
+            dummy.scale.set(1,dist,1);
 
             dummy.updateMatrix();
 
             this.mesh.setMatrixAt(i, dummy.matrix);
+
+            stick.updateStick();
 
         }
 

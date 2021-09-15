@@ -6,11 +6,13 @@ require('normalize.css/normalize.css');
 require("./index.css");
 
 let renderer, scene, camera;
-let container;
+let container, dist;
 let raycaster, mouse, selectedObject;
 let instanceSticks, instancePoints;
 
 window.onload = function () {
+
+    dist = 15;
     
     init();
     initObjects();
@@ -29,7 +31,7 @@ function init() {
     container.appendChild(renderer.domElement);
 
     camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 1000);
-    camera.position.set(0, 0, 15);
+    camera.position.set(0, 0, dist);
 
     scene = new THREE.Scene();
 
@@ -37,7 +39,11 @@ function init() {
 
 function initObjects() {
 
-    var instancedObj = initInstanceObjects();
+    var dimensions = getTrueCanvasSize()
+    var canvasW = dimensions[0];
+    var canvasH = dimensions[1];
+
+    var instancedObj = initInstanceObjects(canvasW, canvasH);
     instancePoints = instancedObj[0];
     instanceSticks = instancedObj[1];
 
@@ -53,6 +59,25 @@ function initRaycaster() {
     mouse = new THREE.Vector2(30, 30);
 
     selectedObject = null;
+
+}
+
+// calculates the size of the bounding box of what is visible on the canvas given
+// different screen sizes
+function getTrueCanvasSize() {
+
+    var returnArray = [];
+
+    var vFOV = THREE.MathUtils.degToRad(camera.fov); // convert vertical fov to radians
+
+    var canvasH = 2 * Math.tan(vFOV / 2) * dist; // visible height
+    // camera aspect changes on resize
+    var canvasW = canvasH * camera.aspect;           // visible width
+
+    returnArray.push(canvasW);
+    returnArray.push(canvasH);
+
+    return returnArray;
 
 }
 

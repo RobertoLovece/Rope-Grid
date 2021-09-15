@@ -1,7 +1,7 @@
 import { Vector2 } from "three";
 
 const bounce = 0.9;
-const gravity = -0.005;
+const gravity = -0.004;
 const friction = 0.999;
 
 export default class Point {
