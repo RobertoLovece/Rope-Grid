@@ -7,7 +7,6 @@ export default class InstancePoint {
     constructor(points) {
 
         this.points = points;
-        console.log(points.length);
 
         var geometry = new THREE.CircleGeometry(0.1, 16);
         // const geometry = new THREE.BoxGeometry(1, 1, 1);
@@ -22,8 +21,6 @@ export default class InstancePoint {
     updatePoints() {
 
         for (let i = 0; i < this.points.length; i++) {
-
-            console.log(i);
 
             var point = this.points[i]; 
             

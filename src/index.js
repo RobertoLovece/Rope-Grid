@@ -1,14 +1,18 @@
 import * as THREE from 'three';
 
+import Stats from 'three/examples/jsm/libs/stats.module.js';
+import { GUI } from 'three/examples/jsm/libs/dat.gui.module.js';
+
 import { initInstanceObjects } from './instance/InstanceInit.js';
 
 require('normalize.css/normalize.css');
 require("./index.css");
 
 let renderer, scene, camera;
-let container, dist;
+let container, stats;
 let raycaster, mouse, selectedObject;
 let instanceSticks, instancePoints;
+let dist;
 
 window.onload = function () {
 
@@ -16,6 +20,7 @@ window.onload = function () {
     
     init();
     initObjects();
+    initStats();
 
     animate();
 
@@ -52,6 +57,14 @@ function initObjects() {
 
 }
 
+function initStats() {
+
+    stats = new Stats();
+    document.body.appendChild(stats.dom);
+
+}
+
+
 function initRaycaster() {
 
     raycaster = new THREE.Raycaster();
@@ -87,6 +100,7 @@ function animate() {
     instancePoints.updatePoints();
 
     instanceSticks.update();
+    stats.update();
 
     renderer.render(scene, camera);
 
