@@ -11,7 +11,7 @@ require("./index.css");
 
 let renderer, scene, camera;
 let container, stats;
-let raycaster, mouse, selectedObject;
+let raycaster, color, mouse, leftMouseButtonDown;
 let instanceSticks, instancePoints;
 let dist;
 
@@ -20,9 +20,10 @@ let dist;
 window.onload = function () {
 
     dist = 15;
-    
+
     init();
     initObjects();
+    initRaycaster();
     initStats();
 
     animate();
@@ -80,8 +81,79 @@ function initRaycaster() {
     raycaster = new THREE.Raycaster();
     mouse = new THREE.Vector2(30, 30);
 
-    selectedObject = null;
+    color = new THREE.Color(0xff0000);
 
+}
+
+//
+
+function animate() {
+
+    requestAnimationFrame(animate);
+
+    raycaster.setFromCamera(mouse, camera);
+
+    instancePoints.updatePoints();
+
+    var selected = raycastPoints();
+
+    instanceSticks.update();
+
+    if (selected == false) {
+        raycastSticks();
+    }
+
+    stats.update();
+
+    renderer.render(scene, camera);
+
+}
+
+//
+
+function raycastPoints() {
+
+    var selected = false;
+
+    var intersection = raycaster.intersectObject(instancePoints.mesh);
+
+    if (intersection.length > 0) {
+
+        var intersectionId = intersection[0].instanceId;
+
+        instancePoints.mesh.setColorAt(intersectionId, color);
+        instancePoints.mesh.instanceColor.needsUpdate = true;
+
+        selected = true
+
+        // if (leftMouseButtonDown) {
+        //     instancePoints.points[intersectionId].toggleLocked();
+        // }
+
+    }
+
+    return selected;
+}
+
+//
+
+function raycastSticks() {
+
+    var intersection = raycaster.intersectObject(instanceSticks.mesh);
+
+    if (intersection.length > 0) {
+
+        var intersectionId = intersection[0].instanceId;
+
+        instanceSticks.mesh.setColorAt(intersectionId, color);
+        instanceSticks.mesh.instanceColor.needsUpdate = true;
+
+        if (leftMouseButtonDown) {
+            instanceSticks.sticks.splice(intersectionId, 1);
+            instanceSticks.mesh.count = instanceSticks.sticks.length;
+        }
+
+    }
 }
 
 //
@@ -107,28 +179,26 @@ function getTrueCanvasSize() {
 
 //
 
-function animate() {
-    requestAnimationFrame(animate);
-
-    instancePoints.updatePoints();
-
-    instanceSticks.update();
-    stats.update();
-
-    renderer.render(scene, camera);
-
-}
-
-//
-
 function initEventListeners() {
+
+    document.body.onmousedown = setLeftButtonState;
+    document.body.onmousemove = setLeftButtonState;
+    document.body.onmouseup = setLeftButtonState;
+
+
     window.addEventListener('resize', onWindowResize, false);
-    // document.addEventListener('pointermove', onPointerMove);
+    document.addEventListener('mousemove', onMouseMove);
 }
 
 /*
  *  CODE BELOW IS FOR EVENT LISTENERS 
  */
+
+function setLeftButtonState(e) {
+    leftMouseButtonDown = e.buttons === undefined
+        ? e.which === 1
+        : e.buttons === 1;
+}
 
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -140,44 +210,12 @@ function onWindowResize() {
 
 //
 
-// modification of code from {https://github.com/mrdoob/three.js/blob/master/examples/webgl_raycast_sprite.html}
-function onPointerMove( event ) {
+function onMouseMove(event) {
 
-    if ( selectedObject ) {
+    event.preventDefault();
 
-        // set back to default colour and clear selected object
-        selectedObject.material.color.set(0xffffff);
-        selectedObject = null;
-
-    }
-
-    // mouse position for comparision to object positions
-	// trueMouse.x = (( event.clientX / window.innerWidth ) * canvasW) - canvasW/2; 
-	// trueMouse.y = -((( event.clientY / window.innerHeight ) * canvasH) - canvasH/2);
-
-    mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-    mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-
-    raycaster.setFromCamera( mouse, camera );
-
-    const intersects = raycaster.intersectObjects( scene.children);
-
-    if ( intersects.length > 0 ) {
-
-        const res = intersects.filter( function ( res ) {
-
-            return res && res.object;
-
-        } )[ 0 ];
-
-        if ( res && res.object ) {
-
-            // set the object to red when highlighted
-            selectedObject = res.object;
-            selectedObject.material.color.set(0xff0000);
-
-        }
-
-    }
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
 
 }
+

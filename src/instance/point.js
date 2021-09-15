@@ -83,6 +83,16 @@ export default class Point {
 
     //
 
+    toggleLocked() {
+        
+        this.locked = !this.locked;
+
+        this.updateColor();
+        
+    }
+
+    //
+
     updateColor() {
 
         if (this.locked) {
