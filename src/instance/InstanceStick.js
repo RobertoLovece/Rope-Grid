@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import Stick from './stick.js'
 
 const dummy = new THREE.Object3D();
 

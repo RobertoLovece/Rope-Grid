@@ -1,8 +1,6 @@
 import * as THREE from 'three';
 
-import { initInstanceObjects } from './utilities/InstanceInit.js';
-import InstanceStick from './utilities/InstanceStick.js'
-import Point from './utilities/point.js';
+import { initInstanceObjects } from './instance/InstanceInit.js';
 
 require('normalize.css/normalize.css');
 require("./index.css");
@@ -10,7 +8,7 @@ require("./index.css");
 let renderer, scene, camera;
 let container;
 let raycaster, mouse, selectedObject;
-let instanceStick, points;
+let instanceSticks, instancePoints;
 
 window.onload = function () {
     
@@ -40,14 +38,11 @@ function init() {
 function initObjects() {
 
     var instancedObj = initInstanceObjects();
-    points = instancedObj[0];
-    instanceStick = instancedObj[1];
+    instancePoints = instancedObj[0];
+    instanceSticks = instancedObj[1];
 
-    scene.add(instanceStick.mesh);
-
-    points.forEach(function (point) {
-        scene.add(point);
-    });
+    scene.add(instancePoints.mesh);
+    scene.add(instanceSticks.mesh);
 
 }
 
@@ -64,11 +59,9 @@ function initRaycaster() {
 function animate() {
     requestAnimationFrame(animate);
 
-    points.forEach(function (point) {
-        point.updatePoint();
-    });
+    instancePoints.updatePoints();
 
-    instanceStick.update();
+    instanceSticks.update();
 
     renderer.render(scene, camera);
 
