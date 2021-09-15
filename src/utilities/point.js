@@ -4,7 +4,6 @@ export default class Point extends THREE.Mesh {
     constructor(x, y, oldX, oldY, locked) {
         super();
 
-        this.type = "point";
         this.locked = locked;
         this.unlockedColor = 0xffffff;
         this.lockedColor = 0xff5382

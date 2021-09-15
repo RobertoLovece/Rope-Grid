@@ -5,15 +5,9 @@ const dummy = new THREE.Object3D();
 
 export default class InstanceStick {
     // takes an x and y position and size
-    constructor(point0, point1, point2, point3, width) {
+    constructor(sticks, width) {
 
-        this.p0 = point0;
-        this.p1 = point1;
-
-        this.sticks = [];
-        
-        this.sticks.push(new Stick(point0, point1));
-        this.sticks.push(new Stick(point2, point3));
+        this.sticks = sticks;
 
         this.geometry = new THREE.PlaneBufferGeometry(width, 1);
     

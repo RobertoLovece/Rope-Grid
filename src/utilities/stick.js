@@ -3,8 +3,17 @@ import {Vector2} from 'three';
 export default class Stick{
     constructor(point0, point1) {
 
+        console.log(point0);
+        console.log(point1);
+
+        console.log("point0 = " + point0.position);
+        console.log("point1 = " + point1.position);
+
         this.p0 = point0;
         this.p1 = point1;
+
+        console.log("p0 = " + this.p0.position);
+        console.log("p1 = " + this.p1.position);
 
         this.length = this.distance(this.p0, this.p1);
 
