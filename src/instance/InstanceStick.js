@@ -2,21 +2,25 @@ import * as THREE from 'three';
 
 const dummy = new THREE.Object3D();
 
+//
+
 export default class InstanceStick {
     // takes an x and y position and size
     constructor(sticks, width) {
 
         this.sticks = sticks;
 
-        this.geometry = new THREE.PlaneBufferGeometry(width, 1);
+        var geometry = new THREE.PlaneBufferGeometry(width, 1);
     
-        this.matLine = new THREE.MeshBasicMaterial(0xffffff);
+        var material = new THREE.MeshBasicMaterial();
 
-        this.mesh = new THREE.InstancedMesh(this.geometry, this.matLine, this.sticks.length);
+        this.mesh = new THREE.InstancedMesh(geometry, material, this.sticks.length);
 
         this.mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
 
     }
+
+    //
 
     update() {
 
@@ -39,12 +43,19 @@ export default class InstanceStick {
 
             this.mesh.setMatrixAt(i, dummy.matrix);
 
+            var color = new THREE.Color(stick.defaultColor);
+
+            this.mesh.setColorAt(i, color);
+
             stick.updateStick();
 
         }
 
         this.mesh.instanceMatrix.needsUpdate = true;
+        this.mesh.instanceColor.needsUpdate = true;
     }
+
+    //
 
     updateSticks() {
 
@@ -52,6 +63,8 @@ export default class InstanceStick {
             sticks[i].updateStick();
         }
     }
+
+    //
 
     centerMidPoint(p0, p1) {
 
@@ -61,6 +74,8 @@ export default class InstanceStick {
         return new THREE.Vector2(midX, midY);
 
     }
+
+    //
 
     angleBetweenPoints(p0, p1) {
         var deltaY = p1.position.y - p0.position.y;

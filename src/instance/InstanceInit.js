@@ -1,10 +1,10 @@
-import * as THREE from 'three';
-
 import InstancePoint from './InstancePoint.js'
 import InstanceStick from './InstanceStick.js'
 
 import Stick from './stick.js'
 import Point from './point.js';
+
+//
 
 export function initInstanceObjects(canvasW, canvasH) {
 
@@ -19,6 +19,8 @@ export function initInstanceObjects(canvasW, canvasH) {
     return returnArray;
 
 }
+
+//
 
 function createTest() {
 
@@ -59,6 +61,8 @@ function createTest() {
     return returnArray;
 }
 
+//
+
 function createGrid(canvasW, canvasH) {
 
     var returnArray = [];
@@ -82,7 +86,7 @@ function createGrid(canvasW, canvasH) {
 
     var yCoords = [];
     var yOffsetUp = 0.5;
-    var yOffsetDown = 2;
+    var yOffsetDown = 3;
     var yNumber = 8; 
 
     var yStart = (canvasH / 2) - canvasH + yOffsetDown
@@ -144,7 +148,7 @@ function createGrid(canvasW, canvasH) {
     });
 
     var instancePoints = new InstancePoint(points);
-    var instanceSticks = new InstanceStick(sticks, 0.05);
+    var instanceSticks = new InstanceStick(sticks, 0.08);
 
     returnArray.push(instancePoints);
     returnArray.push(instanceSticks);

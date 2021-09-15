@@ -1,8 +1,10 @@
-import { Vector2 } from "three";
+import { Vector2 } from 'three';
 
 const bounce = 0.9;
-const gravity = -0.004;
+const gravity = -0.003;
 const friction = 0.999;
+
+//
 
 export default class Point {
 
@@ -12,11 +14,22 @@ export default class Point {
         this.prevPosition;
         this.locked = locked
 
+        if (this.locked) {
+            this.defaultColor = 0xff5382;
+        }
+        else {
+            this.defaultColor = 0xffffff;
+        }
+
     }
+
+    //
 
     setPreviousPosition(prevX, prevY) {
         this.prevPosition = new Vector2(prevX, prevY);
     }
+
+    //
 
     updatePoint() {
 
@@ -36,6 +49,8 @@ export default class Point {
         }
 
     }
+
+    //
 
     constrainPoint(sceneW, sceneH) {
 
@@ -66,4 +81,16 @@ export default class Point {
 
     }
 
+    //
+
+    updateColor() {
+
+        if (this.locked) {
+            this.defaultColor = 0xff5382;
+        }
+        else {
+            this.defaultColor = 0xffffff;
+        }
+
+    }
 }

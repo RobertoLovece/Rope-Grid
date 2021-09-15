@@ -4,10 +4,13 @@ export default class Stick{
 
         this.p0 = point0;
         this.p1 = point1;
+        this.defaultColor = 0x999bbc;
 
         this.length = this.distance(this.p0, this.p1);
 
     }
+
+    //
 
     distance(p0, p1) {
         var dx = p1.position.x - p0.position.x;
@@ -15,6 +18,8 @@ export default class Stick{
         
         return Math.sqrt(dx * dx + dy * dy);
     }
+
+    //
 
     updateStick() {
         var dx = this.p1.position.x - this.p0.position.x;

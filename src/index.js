@@ -1,18 +1,21 @@
 import * as THREE from 'three';
 
 import Stats from 'three/examples/jsm/libs/stats.module.js';
-import { GUI } from 'three/examples/jsm/libs/dat.gui.module.js';
 
 import { initInstanceObjects } from './instance/InstanceInit.js';
 
 require('normalize.css/normalize.css');
 require("./index.css");
 
+//
+
 let renderer, scene, camera;
 let container, stats;
 let raycaster, mouse, selectedObject;
 let instanceSticks, instancePoints;
 let dist;
+
+//
 
 window.onload = function () {
 
@@ -28,9 +31,11 @@ window.onload = function () {
     onWindowResize();
 }
 
+//
+
 function init() {
 
-    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 
     container = document.getElementById('canvas');
     container.appendChild(renderer.domElement);
@@ -41,6 +46,8 @@ function init() {
     scene = new THREE.Scene();
 
 }
+
+//
 
 function initObjects() {
 
@@ -57,6 +64,8 @@ function initObjects() {
 
 }
 
+//
+
 function initStats() {
 
     stats = new Stats();
@@ -64,16 +73,18 @@ function initStats() {
 
 }
 
+//
 
 function initRaycaster() {
 
     raycaster = new THREE.Raycaster();
-    raycaster.params.Line.threshold = 0.02; 
     mouse = new THREE.Vector2(30, 30);
 
     selectedObject = null;
 
 }
+
+//
 
 // calculates the size of the bounding box of what is visible on the canvas given
 // different screen sizes
@@ -94,6 +105,8 @@ function getTrueCanvasSize() {
 
 }
 
+//
+
 function animate() {
     requestAnimationFrame(animate);
 
@@ -105,6 +118,8 @@ function animate() {
     renderer.render(scene, camera);
 
 }
+
+//
 
 function initEventListeners() {
     window.addEventListener('resize', onWindowResize, false);
@@ -122,6 +137,8 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 
 }
+
+//
 
 // modification of code from {https://github.com/mrdoob/three.js/blob/master/examples/webgl_raycast_sprite.html}
 function onPointerMove( event ) {
