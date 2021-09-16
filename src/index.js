@@ -37,6 +37,8 @@ window.onload = function () {
 function init() {
 
     renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setPixelRatio( window.devicePixelRatio );
+    renderer.setSize( window.innerWidth, window.innerHeight );
 
     container = document.getElementById('canvas');
     container.appendChild(renderer.domElement);
