@@ -11,7 +11,7 @@ require("./index.css");
 
 let renderer, scene, camera;
 let container, stats;
-let raycaster, color, mouse, leftMouseButtonDown;
+let raycaster, color, mouse, leftMouseButtonDown, prevInstanceId;
 let instanceSticks, instancePoints;
 let dist;
 
@@ -97,7 +97,10 @@ function animate() {
 
     var selected = raycastPoints();
 
-    instanceSticks.update();
+    // run update sticks from 3-5 times to make it more stable and less jittery
+    for (let i = 0; i < 3; i++) {
+        instanceSticks.update();
+    }
 
     if (selected == false) {
         raycastSticks();
@@ -126,10 +129,14 @@ function raycastPoints() {
 
         selected = true
 
-        // if (leftMouseButtonDown) {
-        //     instancePoints.points[intersectionId].toggleLocked();
-        // }
+        if (leftMouseButtonDown && prevInstanceId != intersectionId) {
+            instancePoints.points[intersectionId].toggleLocked();
+            prevInstanceId = intersectionId;
+        }
 
+    }
+    else {
+        prevInstanceId = null;
     }
 
     return selected;
@@ -219,3 +226,4 @@ function onMouseMove(event) {
 
 }
 
+// 
