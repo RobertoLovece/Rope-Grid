@@ -38,7 +38,7 @@ function calculateDimensions(canvasW, canvasH)  {
     var stickW = pointR * 0.6;
 
     if (canvasW > 22) {
-        var yOffsetDown = (1/4) * canvasH;
+        var yOffsetDown = (1/3) * canvasH;
 
         var xNumber = 11;
         var yNumber = 8;
@@ -50,7 +50,7 @@ function calculateDimensions(canvasW, canvasH)  {
         lockedPos.push(10);
     }
     else {
-        var yOffsetDown = (1/7) * canvasH;
+        var yOffsetDown = (1/4) * canvasH;
 
         var xNumber = 9;
         var yNumber = 8;
