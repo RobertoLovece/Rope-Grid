@@ -138,6 +138,9 @@ function raycastPoints() {
         }
 
     }
+    else {
+        clicked = false;
+    }
 
     return selected;
 }
@@ -192,10 +195,12 @@ function initEventListeners() {
     document.body.onmousemove = setLeftButtonState;
     document.body.onmouseup = setLeftButtonState;
 
-
     window.addEventListener('resize', onWindowResize, false);
     document.addEventListener('mousemove', onMouseMove);
     window.addEventListener('click', onClick, false);
+    // window.addEventListener('mouseup', onMouseUp, false);
+    // window.addEventListener('mousedown', onMouseDown, false);
+
 }
 
 /*
@@ -232,3 +237,15 @@ function onMouseMove(event) {
 function onClick() { 
     clicked = true;
 }
+
+//
+
+// function onMouseDown() {
+//     clicked = true;
+// }
+
+//
+
+// function onMouseUp(e) { 
+//     clicked = false;
+// }

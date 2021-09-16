@@ -19,6 +19,7 @@ export default class Point {
         }
         else {
             this.defaultColor = 0xffffff;
+            // this.defaultColor = 0x808080;
         }
 
     }

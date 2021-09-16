@@ -11,6 +11,7 @@ export default class InstancePoint {
         this.points = points;
 
         var geometry = new THREE.CircleGeometry(radius, 16);
+        // var geometry = new THREE.SphereGeometry(radius, 16, 16);
         // const geometry = new THREE.BoxGeometry(1, 1, 1);
         var material = new THREE.MeshBasicMaterial(0xffffff);
 

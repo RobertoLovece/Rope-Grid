@@ -11,6 +11,7 @@ export default class InstanceStick {
         this.sticks = sticks;
 
         var geometry = new THREE.PlaneBufferGeometry(width, 1);
+        // var geometry = new THREE.BoxGeometry(width, 1, width);
     
         var material = new THREE.MeshBasicMaterial();
 
