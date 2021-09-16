@@ -11,7 +11,7 @@ require("./index.css");
 
 let renderer, scene, camera;
 let container, stats;
-let raycaster, color, mouse, leftMouseButtonDown, prevInstanceId;
+let raycaster, color, mouse, leftMouseButtonDown, clicked;
 let instanceSticks, instancePoints;
 let dist;
 
@@ -82,6 +82,7 @@ function initRaycaster() {
     mouse = new THREE.Vector2(30, 30);
 
     color = new THREE.Color(0xff0000);
+    clicked = false;
 
 }
 
@@ -129,14 +130,11 @@ function raycastPoints() {
 
         selected = true
 
-        if (leftMouseButtonDown && prevInstanceId != intersectionId) {
+        if (clicked) {
+            clicked = false;
             instancePoints.points[intersectionId].toggleLocked();
-            prevInstanceId = intersectionId;
         }
 
-    }
-    else {
-        prevInstanceId = null;
     }
 
     return selected;
@@ -195,6 +193,7 @@ function initEventListeners() {
 
     window.addEventListener('resize', onWindowResize, false);
     document.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('click', onClick, false);
 }
 
 /*
@@ -227,3 +226,7 @@ function onMouseMove(event) {
 }
 
 // 
+
+function onClick() { 
+    clicked = true;
+}

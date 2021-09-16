@@ -6,11 +6,11 @@ const dummy = new THREE.Object3D();
 
 export default class InstancePoint {
 
-    constructor(points) {
+    constructor(points, radius) {
 
         this.points = points;
 
-        var geometry = new THREE.CircleGeometry(0.14, 16);
+        var geometry = new THREE.CircleGeometry(radius, 16);
         // const geometry = new THREE.BoxGeometry(1, 1, 1);
         var material = new THREE.MeshBasicMaterial(0xffffff);
 

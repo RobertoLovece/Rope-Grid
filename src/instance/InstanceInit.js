@@ -10,7 +10,10 @@ export function initInstanceObjects(canvasW, canvasH) {
 
     var returnArray = [];
 
-    var instanceObj = createGrid(canvasW, canvasH);
+    console.log(canvasW)
+
+    var dimensions = calculateDimensions(canvasW, canvasH)
+    var instanceObj = createGrid(dimensions, canvasW, canvasH);
     //var instanceObj = createTest();
 
     returnArray.push(instanceObj[0]);
@@ -22,57 +25,78 @@ export function initInstanceObjects(canvasW, canvasH) {
 
 //
 
-function createTest() {
+function calculateDimensions(canvasW, canvasH)  {
 
     var returnArray = [];
 
-    // init points
+    var xOffset = (1/20) * canvasW;
 
-    var point0 = new Point(0, -1, true);
-    var point1 = new Point(2, 1, false);
+    var yOffsetUp = (1/20) * canvasH;
+    var yOffsetDown = (1/5) * canvasH;
 
-    var point2 = new Point(4, 0, true);
-    var point3 = new Point(3, 2, false);
+    var pointR = 0.14;
+    var stickW = pointR * 0.6;
 
-    var points = [];
+    if (canvasW > 22) {
+        var yOffsetDown = (1/4) * canvasH;
 
-    points.push(point0);
-    points.push(point1);
-    points.push(point2);
-    points.push(point3);
+        var xNumber = 11;
+        var yNumber = 8;
 
-    points.forEach(function (point) {
-        point.setPreviousPosition(point.position.x, point.position.y)
-    });
+        var lockedPos = []
 
-    var instancePoints = new InstancePoint(points);
+        lockedPos.push(0);
+        lockedPos.push(5);
+        lockedPos.push(10);
+    }
+    else {
+        var yOffsetDown = (1/7) * canvasH;
 
-    // init of sticks
-    var sticks = [];
+        var xNumber = 9;
+        var yNumber = 8;
 
-    sticks.push(new Stick(point0, point1));
-    sticks.push(new Stick(point2, point3));
+        var lockedPos = []
 
-    var instanceSticks = new InstanceStick(sticks, 0.05);
+        lockedPos.push(0);
+        lockedPos.push(4);
+        lockedPos.push(8);
+    }
 
-    returnArray.push(instancePoints);
-    returnArray.push(instanceSticks);
+    returnArray.push(xOffset);
+    returnArray.push(yOffsetUp);
+    returnArray.push(yOffsetDown);
+    returnArray.push(pointR);
+    returnArray.push(stickW);
+    returnArray.push(xNumber);
+    returnArray.push(yNumber);
+    returnArray.push(lockedPos);
 
     return returnArray;
+
 }
 
 //
 
-function createGrid(canvasW, canvasH) {
+function createGrid(dimensions, canvasW, canvasH) {
 
     var returnArray = [];
-
     var points = [];
     var sticks = [];
 
+    var xOffset = dimensions[0];
+
+    var yOffsetUp = dimensions[1];
+    var yOffsetDown = dimensions[2];
+
+    var pointR = dimensions[3];
+    var stickW = dimensions[4];
+
+    var xNumber = dimensions[5];
+    var yNumber = dimensions[6];
+
+    var lockedPos = dimensions[7];
+
     var xCoords = [];
-    var xOffset = 3;
-    var xNumber = 11;
     
     var xStart = (canvasW / 2) - canvasW + xOffset
     var xEnd = (canvasW / 2) - xOffset;
@@ -85,9 +109,6 @@ function createGrid(canvasW, canvasH) {
     } 
 
     var yCoords = [];
-    var yOffsetUp = 0.5;
-    var yOffsetDown = 3;
-    var yNumber = 8; 
 
     var yStart = (canvasH / 2) - canvasH + yOffsetDown
     var yEnd = (canvasH / 2) - yOffsetUp;
@@ -103,7 +124,7 @@ function createGrid(canvasW, canvasH) {
 
     yCoords.forEach(function(y) {
         xCoords.forEach(function(x) {
-            if (count == 0 || count == 5 || count == 10) {
+            if (count == lockedPos[0] || count == lockedPos[1] || count == lockedPos[2]) {
                 points.push(
                     new Point(x, y, true)
                 );
@@ -147,8 +168,8 @@ function createGrid(canvasW, canvasH) {
 
     });
 
-    var instancePoints = new InstancePoint(points);
-    var instanceSticks = new InstanceStick(sticks, 0.08);
+    var instancePoints = new InstancePoint(points, pointR);
+    var instanceSticks = new InstanceStick(sticks, stickW);
 
     returnArray.push(instancePoints);
     returnArray.push(instanceSticks);
