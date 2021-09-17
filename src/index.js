@@ -203,9 +203,9 @@ function initEventListeners() {
     document.body.onmouseup = setLeftButtonState;
 
     // for mobile touch
-    document.addEventListener('touchstart', onTouchStart, false);
+    document.addEventListener('touchstart', onTouchStart, { passive: false });
     document.addEventListener('touchmove', onTouchMove, { passive: false });
-    document.addEventListener('touchend', onTouchEnd, false);
+    document.addEventListener('touchend', onTouchEnd, { passive: false });
 
 }
 
