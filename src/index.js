@@ -203,9 +203,9 @@ function initEventListeners() {
     document.body.onmouseup = setLeftButtonState;
 
     // for mobile touch
-    document.addEventListener('touchstart', onTouchStart, { passive: false });
+    document.addEventListener('touchstart', onTouchStart, false);
     document.addEventListener('touchmove', onTouchMove, { passive: false });
-    document.addEventListener('touchend', onTouchEnd, { passive: false });
+    document.addEventListener('touchend', onTouchEnd, false);
 
 }
 
@@ -249,7 +249,7 @@ function onClick() {
 function onTouchStart(event) {
 
     // overrites default mouse functionality 
-    event.preventDefault();
+    // event.preventDefault();
 
     mouse.x = (event.changedTouches[0].clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.changedTouches[0].clientY / window.innerHeight) * 2 + 1;
@@ -269,9 +269,9 @@ function onTouchMove(event) {
 
 //
 
-function onTouchEnd(event) {
+function onTouchEnd() {
 
-    event.preventDefault();
+    // event.preventDefault();
 
     leftMouseButtonDown = false;
 
