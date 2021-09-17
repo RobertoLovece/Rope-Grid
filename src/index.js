@@ -191,15 +191,21 @@ function getTrueCanvasSize() {
 
 function initEventListeners() {
 
+    // for resize
+    window.addEventListener('resize', onWindowResize, false);
+
+    // for mouse
+    document.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('click', onClick, false);
+
     document.body.onmousedown = setLeftButtonState;
     document.body.onmousemove = setLeftButtonState;
     document.body.onmouseup = setLeftButtonState;
 
-    window.addEventListener('resize', onWindowResize, false);
-    document.addEventListener('mousemove', onMouseMove);
-    window.addEventListener('click', onClick, false);
-    // window.addEventListener('mouseup', onMouseUp, false);
-    // window.addEventListener('mousedown', onMouseDown, false);
+    // for mobile touch
+    document.addEventListener('touchstart', onTouchStart, false);
+    document.addEventListener('touchmove', onTouchMove, false);
+    document.addEventListener('touchend', onTouchEnd, false);
 
 }
 
@@ -240,12 +246,28 @@ function onClick() {
 
 //
 
-// function onMouseDown() {
-//     clicked = true;
-// }
+function onTouchStart(event) {
+
+    mouse.x = (event.changedTouches[0].clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.changedTouches[0].clientY / window.innerHeight) * 2 + 1;
+
+    leftMouseButtonDown = true;
+
+}
+
+function onTouchMove(event) {
+    
+    mouse.x = (event.changedTouches[0].clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.changedTouches[0].clientY / window.innerHeight) * 2 + 1;
+
+}
 
 //
 
-// function onMouseUp(e) { 
-//     clicked = false;
-// }
+function onTouchEnd() {
+
+    leftMouseButtonDown = false;
+
+}
+
+//
