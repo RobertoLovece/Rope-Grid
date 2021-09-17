@@ -248,7 +248,8 @@ function onClick() {
 
 function onTouchStart(event) {
 
-    // event.preventDefault();
+    // overrites default mouse functionality 
+    event.preventDefault();
 
     mouse.x = (event.changedTouches[0].clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.changedTouches[0].clientY / window.innerHeight) * 2 + 1;
@@ -270,7 +271,7 @@ function onTouchMove(event) {
 
 function onTouchEnd(event) {
 
-    // event.preventDefault();
+    event.preventDefault();
 
     leftMouseButtonDown = false;
 
