@@ -10,8 +10,6 @@ export function initInstanceObjects(canvasW, canvasH) {
 
     var returnArray = [];
 
-    console.log(canvasW)
-
     var dimensions = calculateDimensions(canvasW, canvasH)
     var instanceObj = createGrid(dimensions, canvasW, canvasH);
     //var instanceObj = createTest();
