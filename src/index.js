@@ -203,9 +203,9 @@ function initEventListeners() {
     document.body.onmouseup = setLeftButtonState;
 
     // for mobile touch
-    document.addEventListener('touchstart', onTouchStart, false);
-    document.addEventListener('touchmove', onTouchMove, false);
-    document.addEventListener('touchend', onTouchEnd, false);
+    document.addEventListener('touchstart', onTouchStart, { passive: false });
+    document.addEventListener('touchmove', onTouchMove, { passive: false });
+    document.addEventListener('touchend', onTouchEnd, { passive: false });
 
 }
 
@@ -248,6 +248,8 @@ function onClick() {
 
 function onTouchStart(event) {
 
+    event.preventDefault();
+
     mouse.x = (event.changedTouches[0].clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.changedTouches[0].clientY / window.innerHeight) * 2 + 1;
 
@@ -256,6 +258,8 @@ function onTouchStart(event) {
 }
 
 function onTouchMove(event) {
+
+    event.preventDefault();
     
     mouse.x = (event.changedTouches[0].clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.changedTouches[0].clientY / window.innerHeight) * 2 + 1;
@@ -265,6 +269,8 @@ function onTouchMove(event) {
 //
 
 function onTouchEnd() {
+
+    event.preventDefault();
 
     leftMouseButtonDown = false;
 
