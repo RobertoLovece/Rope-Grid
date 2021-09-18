@@ -10,7 +10,7 @@ require("./index.css");
 //
 
 let renderer, scene, camera;
-let container, stats;
+let container, stats, clock;
 let raycaster, color, mouse, leftMouseButtonDown, clicked;
 let instanceSticks, instancePoints;
 let dist;
@@ -35,6 +35,8 @@ window.onload = function () {
 //
 
 function init() {
+
+    clock = new THREE.Clock();
 
     renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setPixelRatio( window.devicePixelRatio );
@@ -96,13 +98,14 @@ function animate() {
 
     raycaster.setFromCamera(mouse, camera);
 
-    instancePoints.updatePoints();
+    let delta = clock.getDelta();
+    instancePoints.updatePoints(delta);
 
     var selected = raycastPoints();
 
     // run update sticks from 3-5 times to make it more stable and less jittery
     for (let i = 0; i < 3; i++) {
-        instanceSticks.update();
+        instanceSticks.update(delta);
     }
 
     if (selected == false) {

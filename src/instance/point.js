@@ -1,7 +1,7 @@
 import { Vector2 } from 'three';
 
 const bounce = 0.9;
-const gravity = -0.003;
+const gravity = -4;
 const friction = 0.999;
 
 //
@@ -32,7 +32,7 @@ export default class Point {
 
     //
 
-    updatePoint() {
+    updatePoint(delta) {
 
         if (!this.locked) {
 
@@ -42,10 +42,13 @@ export default class Point {
             this.prevPosition.x = this.position.x;
             this.prevPosition.y = this.position.y;
 
-            this.position.x += vx;
+            this.position.x += vx; 
             this.position.y += vy;
 
-            this.position.y += gravity;
+            var g = gravity;
+            g /= (1000/30);
+
+            this.position.y += g * delta;
 
         }
 

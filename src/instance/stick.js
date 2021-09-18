@@ -21,7 +21,7 @@ export default class Stick{
 
     //
 
-    updateStick() {
+    updateStick(delta) {
         var dx = this.p1.position.x - this.p0.position.x;
         var dy = this.p1.position.y - this.p0.position.y;
 
@@ -29,8 +29,8 @@ export default class Stick{
         var difference = this.length - distance;
         var percent = difference / distance / 2;
 
-        var offsetX = dx * percent;
-        var offsetY = dy * percent;
+        var offsetX = (dx * percent);
+        var offsetY = (dy * percent);
 
         if(!this.p0.locked) {
             this.p0.position.x -= offsetX;
@@ -39,7 +39,7 @@ export default class Stick{
 
         if(!this.p1.locked) {
             this.p1.position.x += offsetX;
-            this.p1.position.y += offsetY;
+            this.p1.position.y += offsetY; 
         }
 
     }

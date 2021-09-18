@@ -23,7 +23,7 @@ export default class InstanceStick {
 
     //
 
-    update() {
+    update(delta) {
 
         for (let i = 0; i < this.sticks.length; i++) {
             
@@ -48,7 +48,7 @@ export default class InstanceStick {
 
             this.mesh.setColorAt(i, color);
 
-            stick.updateStick();
+            stick.updateStick(delta);
 
         }
 
@@ -58,10 +58,10 @@ export default class InstanceStick {
 
     //
 
-    updateSticks() {
+    updateSticks(delta) {
 
         for (let i = 0; i < this.sticks.length; i++) {
-            sticks[i].updateStick();
+            sticks[i].updateStick(delta);
         }
     }
 

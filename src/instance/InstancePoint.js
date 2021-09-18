@@ -23,7 +23,7 @@ export default class InstancePoint {
 
     //
 
-    updatePoints() {
+    updatePoints(delta) {
 
         // update points in random order
         var random = this.generateRandomIndexes(this.points.length);
@@ -33,7 +33,7 @@ export default class InstancePoint {
             var index = random[i];
             var point = this.points[index]; 
             
-            point.updatePoint();
+            point.updatePoint(delta);
 
             dummy.position.set(point.position.x, point.position.y, 0);
 
