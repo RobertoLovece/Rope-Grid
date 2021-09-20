@@ -33,8 +33,8 @@ export default class Stick{
         var offsetY = (dy * percent);
 
         if(!this.p0.locked) {
-            this.p0.position.x -= offsetX;
-            this.p0.position.y -= offsetY;
+            this.p0.position.x -= (offsetX)
+            this.p0.position.y -= (offsetY);
         }
 
         if(!this.p1.locked) {

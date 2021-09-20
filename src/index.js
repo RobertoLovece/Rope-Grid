@@ -99,6 +99,12 @@ function animate() {
     raycaster.setFromCamera(mouse, camera);
 
     let delta = clock.getDelta();
+
+    // if less than 5 fps pause animation to stop glitches
+    if (delta > 1/5) {
+        delta = 0;
+    }
+
     instancePoints.updatePoints(delta);
 
     var selected = raycastPoints();
