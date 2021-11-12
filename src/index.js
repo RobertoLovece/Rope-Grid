@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-
 import Stats from 'three/examples/jsm/libs/stats.module.js';
 
 import { initInstanceObjects } from './instance/InstanceInit.js';
@@ -13,7 +12,7 @@ let renderer, scene, camera;
 let container, stats, clock;
 let raycaster, color, mouse, leftMouseButtonDown, clicked;
 let instanceSticks, instancePoints;
-let dist;
+let dist, controls;
 
 //
 

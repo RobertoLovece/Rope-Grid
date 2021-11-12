@@ -15,11 +15,10 @@ export default class Point {
         this.locked = locked
 
         if (this.locked) {
-            this.defaultColor = 0xff5382;
+            this.defaultColor = 0xe5383b;
         }
         else {
             this.defaultColor = 0xffffff;
-            // this.defaultColor = 0x808080;
         }
 
     }

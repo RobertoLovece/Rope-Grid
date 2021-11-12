@@ -4,7 +4,7 @@ export default class Stick{
 
         this.p0 = point0;
         this.p1 = point1;
-        this.defaultColor = 0x999bbc;
+        this.defaultColor = 0xAEAEAE;
 
         this.length = this.distance(this.p0, this.p1);
 
