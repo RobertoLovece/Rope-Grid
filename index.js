@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
+//
+
 import { initInstanceObjects } from './src/instance/InstanceInit.js';
 
 require('normalize.css/normalize.css');
@@ -9,7 +11,7 @@ require('./src/index.css');
 
 //
 
-let renderer, scene, camera;
+let renderer, scene, camera, composer;
 let container, stats, clock;
 let raycaster, color, mouse, leftMouseButtonDown, clicked;
 let instanceSticks, instancePoints;
@@ -21,12 +23,12 @@ window.onload = function () {
 
     dist = 15;
 
-    init();
+    initScene();
     initObjects();
     initRaycaster();
     initStats();
 
-    controls = new OrbitControls(camera, renderer.domElement);
+    // controls = new OrbitControls(camera, renderer.domElement);
 
     animate();
 
@@ -36,7 +38,7 @@ window.onload = function () {
 
 //
 
-function init() {
+function initScene() {
 
     clock = new THREE.Clock();
 
@@ -76,7 +78,7 @@ function initObjects() {
 function initStats() {
 
     stats = new Stats();
-    // document.body.appendChild(stats.dom);
+    document.body.appendChild(stats.dom);
 
 }
 
@@ -91,10 +93,6 @@ function initRaycaster() {
     clicked = false;
 
 }
-
-//
-
-
 
 //
 
@@ -125,8 +123,7 @@ function animate() {
     }
 
     stats.update();
-    // controls.update();
-
+    
     renderer.render(scene, camera);
 
 }
@@ -236,10 +233,16 @@ function setLeftButtonState(e) {
 }
 
 function onWindowResize() {
-    camera.aspect = window.innerWidth / window.innerHeight;
+    var container = document.getElementById('canvas');
+
+    var width = container.offsetWidth;
+    var height = container.offsetHeight;
+
+    camera.aspect = width / height;
     camera.updateProjectionMatrix();
 
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(width, height);
 
 }
 
