@@ -1,10 +1,11 @@
 import * as THREE from 'three';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
-import { initInstanceObjects } from './instance/InstanceInit.js';
+import { initInstanceObjects } from './src/instance/InstanceInit.js';
 
 require('normalize.css/normalize.css');
-require("./index.css");
+require('./src/index.css');
 
 //
 
@@ -24,6 +25,8 @@ window.onload = function () {
     initObjects();
     initRaycaster();
     initStats();
+
+    controls = new OrbitControls(camera, renderer.domElement);
 
     animate();
 
@@ -73,7 +76,7 @@ function initObjects() {
 function initStats() {
 
     stats = new Stats();
-    document.body.appendChild(stats.dom);
+    // document.body.appendChild(stats.dom);
 
 }
 
@@ -88,6 +91,10 @@ function initRaycaster() {
     clicked = false;
 
 }
+
+//
+
+
 
 //
 
@@ -118,6 +125,7 @@ function animate() {
     }
 
     stats.update();
+    // controls.update();
 
     renderer.render(scene, camera);
 

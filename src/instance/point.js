@@ -99,7 +99,7 @@ export default class Point {
     updateColor() {
 
         if (this.locked) {
-            this.defaultColor = 0xff5382;
+            this.defaultColor = 0xe5383b;
         }
         else {
             this.defaultColor = 0xffffff;
