@@ -3,53 +3,45 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 
- 	mode: 'development',
+	mode: 'development',
 
-  	entry: {
+	entry: {
 		index: './index.js',
 		//print: './src/print.js',
- 	},
- 	output: {
+	},
+	output: {
 		filename: '[name].bundle.js',
 		path: path.resolve(__dirname, 'dist'),
 		clean: true,
- 	},
+	},
 
- 	plugins: [
+	plugins: [
 		new HtmlWebpackPlugin({
-		  	template: './index.html',
-		  	inject: true,
-		  	chunks: ['index'],
-		  	filename: 'index.html'
+			template: './index.html',
+			inject: true,
+			chunks: ['index'],
+			filename: 'index.html'
 		}),
- 	],
+	],
 
 	target: 'web',
-  	devtool: 'inline-source-map',
-  	devServer: {
+	devtool: 'inline-source-map',
+	devServer: {
 		open: true,
 		static: './dist',
 		port: 8080,
-  	},
+	},
 
-  	module: {
+	module: {
 		rules: [
-	  		{
-			test: /\.css$/i,
-			use: ['style-loader', 'css-loader'],
-	  		},
-	  	{
-			test: /\.(png|svg|jpg|jpeg|gif)$/i,
-			type: 'asset/resource',
-	  	},
-	  		{
-			test: /\.(glsl|vs|fs|vert|frag)$/,
-			exclude: /node_modules/,
-			use: [
-		  		'raw-loader',
-		  		'glslify-loader'
-				]
-	  		}
+			{
+				test: /\.css$/i,
+				use: ['style-loader', 'css-loader'],
+			},
+			{
+				test: /\.(png|svg|jpg|jpeg|gif)$/i,
+				type: 'asset/resource',
+			},
 		],
- 	},
+	},
 };
