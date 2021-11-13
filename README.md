@@ -6,8 +6,8 @@
 
 ## Instructions
 
-- Click onto a point to toggle whether it's locked or not.
 - Drag the mouse/pointer across the screen to cut ropes.
+- Click onto a point to toggle whether it's locked or not.
 
 ## Installation
 __Requires npm (https://www.npmjs.com/)__
